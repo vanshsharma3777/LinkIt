@@ -1,4 +1,4 @@
-// lib/auth.ts
+
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth from 'next-auth'
 import GoogleProvider from "next-auth/providers/google";
@@ -22,12 +22,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
-    strategy: "database", // Using database strategy with Prisma
+    strategy: "database", 
   },
 
   callbacks: {
     async session({ session, user }) {
-      // With database strategy, use 'user' not 'token'
+   
       if (user) {
         session.user.id = user.id;
       }

@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client"
@@ -20,6 +15,7 @@ model Account {
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
+
   refresh_token     String? @db.Text
   access_token      String? @db.Text
   expires_at        Int?
@@ -32,6 +28,7 @@ model Account {
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
+
 }
 
 model Session {
