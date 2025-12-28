@@ -18,7 +18,7 @@ export default function  home(){
         <Button className="m-4 bg-green-500">GET STARTED</Button>
       <Button className="m-4 bg-red-600" onClick={()=>{
         nav('/signin')
-      }}>LOG OUT</Button>
+      }}>LOG OUT</Button> 
       </div>
     </div>
   )
