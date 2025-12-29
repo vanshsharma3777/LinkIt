@@ -1,6 +1,6 @@
 "use client"
 
-import { nav } from "@/lib/navigate"
+import { useNav } from "@/lib/navigate"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 type FmButtonProps = {
@@ -9,14 +9,15 @@ type FmButtonProps = {
 }
 const  FmBtton=({text , navigateTo }:FmButtonProps)=> {
     const router = useRouter()
+    const nav = useNav()
   return (
     <motion.button
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
-        duration: 0.6,
-        ease: "easeOut",
-        delay: 0.7,
+        duration: 0.4,
+        ease:"easeInOut",
+        delay: 0.2,
       }}
       whileHover={{
         scale: 1.05,

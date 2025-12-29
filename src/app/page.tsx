@@ -2,10 +2,28 @@
 
 import { motion } from "framer-motion"
 import FmButton from "../../components/ui/fm-button"
-import { nav } from "@/lib/navigate"
+import { useSession } from "next-auth/react"
+import { useEffect } from "react"
+import { useNav } from "@/lib/navigate"
+import { PulseLoader } from "@/components/ui/loader"
+export default  function Hero() {
+  const nav = useNav()
+  const session =useSession()
+  console.log(session.status)
+  useEffect(()=>{
+    if(session.status==='unauthenticated'){
+      return nav('/signin')
+    }
+  },[ session.status])
 
-export default function Hero() {
-  return (
+  if(session.status==='loading'){
+    return <PulseLoader></PulseLoader>
+  }
+  if(session.status==='unauthenticated'){
+    return null
+  }
+  
+    return(
     <div className="flex flex-col justify-center items-center min-h-screen text-center bg-gradient-to-b from-[#0F1115] via-[#121826] to-[#0B0E14]">
 
       {/* Title */}

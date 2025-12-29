@@ -29,7 +29,10 @@ export async function PUT(req: NextRequest,
     }
 
     const {url , title , description , notes , tags } = await req.json()
-    const tagArray = tags.split(',').map((tag:string)=>tag.trim())
+    const tagArray = tags
+        .split(",")
+        .map((tag: string) => tag.trim())
+        .filter((tag: string) => tag.length > 0)
     const userId= session.user.id!
     const updatedLink = await prisma.link.update({
         where:{id:linkId},
@@ -49,11 +52,48 @@ export async function PUT(req: NextRequest,
             }
         },
         include:{
-            tags
+            tags:true
         }
     })
     return NextResponse.json({
         success:true,
         updatedLink
+    },{status:200})
+}
+
+
+export async function GET(req: NextRequest,
+   context: { params: Promise<{ id: string }> }){
+    
+    const {id:linkId} = await context.params
+    console.log(linkId)
+    const session = await auth()
+    if(!session?.user){
+        return NextResponse.json({
+            success:false,
+            error:"unauthorized (link/update)"
+        },{status:401})
+    }
+
+    const doLinkExists = await prisma.link.findFirst({
+        where:{
+            id:linkId,
+            userId:session.user.id!
+        },
+        include:{
+            tags:true
+        }
+    })
+    if(!doLinkExists){
+        return NextResponse.json({
+            success:false,
+            error:"Link not exists or Unauthorized"
+        },{status:402})
+    }
+
+    const userId= session.user.id!
+    return NextResponse.json({
+        success:true,
+        doLinkExists
     },{status:200})
 }

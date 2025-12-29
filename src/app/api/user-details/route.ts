@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         }, { status: 401 })
     }
 
-    const userDeatils = await prisma.user.findFirst({
+    const userDetails = await prisma.user.findFirst({
         where: {
             id: session.user.id!
         },
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         }
     })
     
-    if (!userDeatils) {
+    if (!userDetails) {
         return NextResponse.json({
             success: false,
             error: "User not found or unauthorized"
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
     return NextResponse.json({
         success:true,
-        userDeatils,
+        userDetails,
         userLinks
     })
 }

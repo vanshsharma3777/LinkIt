@@ -13,7 +13,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     const { url, title, id, description, notes, tags, userId } = await req.json()
-    const tagArray = tags.split(',').map((tag:string) => tag.trim());
+    const tagArray = tags
+        .split(",")
+        .map((tag: string) => tag.trim())
+        .filter((tag: string) => tag.length > 0)
+
     const newLink = await prisma.link.create({
         data: {
             url,
@@ -22,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             notes,
             userId: session.user.id!,
             tags: {
-                connectOrCreate: tagArray.map((tag:string) => ({
+                connectOrCreate: tagArray.map((tag: string) => ({
                     where: {
                         name: tag,
                     },
@@ -32,12 +36,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 })),
             },
         },
-        include:{
-            tags
+        include: {
+            tags: true
         }
     })
     return NextResponse.json({
-        success:true,
+        success: true,
         newLink
-    },{status:200})
+    }, { status: 200 })
 }

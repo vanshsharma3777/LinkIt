@@ -1,7 +1,12 @@
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
-export const nav = (address:string | undefined)=>{
-    if(address){
-        redirect(address)
+
+export const useNav =()=>{
+    const router = useRouter()
+
+    return  (address:string | undefined) =>{
+        if(address){
+            router.push(address)
+        }
     }
 }
