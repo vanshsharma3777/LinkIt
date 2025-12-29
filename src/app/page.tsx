@@ -1,23 +1,44 @@
-'use client'
+"use client"
 
-import { Button } from "@/components/ui/button"
-import { nav } from '../../lib/navigate'
-import { useSession } from "next-auth/react"
- 
+import { motion } from "framer-motion"
+import FmButton from "../../components/ui/fm-button"
+import { nav } from "@/lib/navigate"
 
-export default function  home(){
-  const session = useSession()  
-  if(session.status==='unauthenticated'){
-    nav('/signin')
-  }
+export default function Hero() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="flex flex-col ">
-        <Button className="m-4 bg-green-600">GET STARTED</Button>
-      <Button className="m-4 bg-red-600" onClick={()=>{
-        nav('/signin')
-      }}>LOG OUT</Button> 
-      </div>
+    <div className="flex flex-col justify-center items-center min-h-screen text-center bg-gradient-to-b from-[#0F1115] via-[#121826] to-[#0B0E14]">
+
+      {/* Title */}
+      <motion.div
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-8xl font-bold m-1.5 text-orange-500"
+      >
+        LinkIT
+      </motion.div>
+
+      {/* Punch line */}
+      <motion.div
+        initial={{ y: 80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+        className="text-3xl m-1.5 text-gray-300"
+      >
+        Save links. Remember why.
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 1 }}
+        className="mt-8 flex flex-wrap justify-center gap-6 text-gray-400 text-sm"
+      >
+        <span>• Save with purpose</span>
+        <span>• Organize with tags</span>
+        <span>• Find links instantly</span>
+      </motion.div>
+      
+      <FmButton text="Get Started" navigateTo={'/dashboard'}></FmButton>
       
     </div>
   )
