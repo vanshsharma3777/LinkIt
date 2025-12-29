@@ -214,8 +214,8 @@ export type LinkWhereInput = {
   userId?: Prisma.StringFilter<"Link"> | string
   createdAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Link"> | Date | string
-  tags?: Prisma.TagListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tags?: Prisma.TagListRelationFilter
 }
 
 export type LinkOrderByWithRelationInput = {
@@ -228,8 +228,8 @@ export type LinkOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  tags?: Prisma.TagOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
+  tags?: Prisma.TagOrderByRelationAggregateInput
 }
 
 export type LinkWhereUniqueInput = Prisma.AtLeast<{
@@ -245,8 +245,8 @@ export type LinkWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Link"> | string
   createdAt?: Prisma.DateTimeFilter<"Link"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Link"> | Date | string
-  tags?: Prisma.TagListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tags?: Prisma.TagListRelationFilter
 }, "id">
 
 export type LinkOrderByWithAggregationInput = {
@@ -288,8 +288,8 @@ export type LinkCreateInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tags?: Prisma.TagCreateNestedManyWithoutLinksInput
   user: Prisma.UserCreateNestedOneWithoutLinksInput
+  tags?: Prisma.TagCreateNestedManyWithoutLinksInput
 }
 
 export type LinkUncheckedCreateInput = {
@@ -314,8 +314,8 @@ export type LinkUpdateInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tags?: Prisma.TagUpdateManyWithoutLinksNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutLinksNestedInput
+  tags?: Prisma.TagUpdateManyWithoutLinksNestedInput
 }
 
 export type LinkUncheckedUpdateInput = {
@@ -729,8 +729,8 @@ export type LinkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  tags?: boolean | Prisma.Link$tagsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tags?: boolean | Prisma.Link$tagsArgs<ExtArgs>
   _count?: boolean | Prisma.LinkCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["link"]>
 
@@ -774,8 +774,8 @@ export type LinkSelectScalar = {
 
 export type LinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "title" | "description" | "notes" | "isArchived" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["link"]>
 export type LinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tags?: boolean | Prisma.Link$tagsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tags?: boolean | Prisma.Link$tagsArgs<ExtArgs>
   _count?: boolean | Prisma.LinkCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LinkIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -788,8 +788,8 @@ export type LinkIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $LinkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Link"
   objects: {
-    tags: Prisma.$TagPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs>
+    tags: Prisma.$TagPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1195,8 +1195,8 @@ readonly fields: LinkFieldRefs;
  */
 export interface Prisma__LinkClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tags<T extends Prisma.Link$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Link$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tags<T extends Prisma.Link$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Link$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
