@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth"
 import prisma from "@/lib/prisma";
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(request: NextRequest ) {
     const session = await auth()
     console.log(session)
-    console.log("Cookies:", req.cookies.getAll())
+    console.log("Cookies:", request.cookies.getAll())
     if (!session?.user) {
         return NextResponse.json({
             success: false,
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }, { status: 401 })
     }
 
-    const { url, title, id, description, notes, tags, userId } = await req.json()
+    const { url, title, id, description, notes, tags, userId } = await request.json()
     const tagArray = tags
         .split(",")
         .map((tag: string) => tag.trim())

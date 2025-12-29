@@ -2,10 +2,11 @@ import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest,
-   context: { params: Promise<{ id: string }> }){
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }){
     
-    const {id:linkId} = await context.params
+    const {id:linkId} = await params
     console.log(linkId)
     const session = await auth()
     if(!session?.user){
@@ -28,7 +29,7 @@ export async function PUT(req: NextRequest,
         },{status:402})
     }
 
-    const {url , title , description , notes , tags } = await req.json()
+    const {url , title , description , notes , tags } = await request.json()
     const tagArray = tags
         .split(",")
         .map((tag: string) => tag.trim())
@@ -62,10 +63,12 @@ export async function PUT(req: NextRequest,
 }
 
 
-export async function GET(req: NextRequest,
-   context: { params: Promise<{ id: string }> }){
+export async function GET(
+     request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+   ){
     
-    const {id:linkId} = await context.params
+    const {id:linkId} = await params
     console.log(linkId)
     const session = await auth()
     if(!session?.user){
