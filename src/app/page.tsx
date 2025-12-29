@@ -18,9 +18,7 @@ export default function  home(){
         nav('/signin')
       }}>LOG OUT</Button> 
       </div>
-      <div className="bg-green-500 text-2xl">
-        This is lovely winter evening
-      </div>
+      
     </div>
   )
 }
