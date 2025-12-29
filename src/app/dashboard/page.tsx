@@ -44,7 +44,7 @@ export default function DashboardPage() {
     const fetchLinks = async () => {
       try {
         setLoading(true)
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user-details`)
+        const res = await axios.get(`/api/user-details`)
         setLinks(res.data.userLinks)
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -114,7 +114,7 @@ export default function DashboardPage() {
     if (!deleteId) return
     try {
       setDeleting(true)
-      await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/link/delete/${deleteId}`)
+      await axios.delete(`/api/link/delete/${deleteId}`)
       setLinks((prev) => prev.filter((link) => link.id !== deleteId))
       toast.success("Link deleted successfully 🗑️")
       setDeleteId(null)

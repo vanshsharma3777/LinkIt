@@ -36,7 +36,7 @@ export default function EditLink() {
                 setLoading(true)
 
                 const res = await axios.get(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/link/update/${id}`
+                    `/api/link/update/${id}`
                 )
                 const link = res.data.doLinkExists
                 if (!link) {
@@ -94,7 +94,7 @@ export default function EditLink() {
         try {
             setSaving(true)
             await axios.put(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/link/update/${id}`,
+                `/api/link/update/${id}`,
                 form
             )
 
