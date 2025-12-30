@@ -4,8 +4,9 @@ import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req });
-
+  console.log("helloooooo")
   if (!token) {
+    console.log("hello")
     return NextResponse.redirect(new URL("/signin", req.url));
   }
 
@@ -13,6 +14,6 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: [],
 };
     
