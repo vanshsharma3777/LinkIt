@@ -43,6 +43,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   pages: {
-    signIn: "/signin", // Your custom sign-in page
+    signIn: "/signin",
   },
 })
