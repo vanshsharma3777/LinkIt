@@ -20,6 +20,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "database", 
   },
 
+  cookies: {
+    pkceCodeVerifier: {
+      name: "next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
+
   callbacks: {
     async session({ session, user }) {
    
