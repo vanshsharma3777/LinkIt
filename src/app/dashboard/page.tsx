@@ -19,7 +19,7 @@ interface UserLink {
   url: string
   description?: string
   tags?: Tag[]
-    createdAt: string
+  createdAt: string
 
 }
 
@@ -64,7 +64,6 @@ export default function DashboardPage() {
     const handler = (e: MouseEvent) => {
       if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
         setOpenProfile(false)
-        setOpenFilter(false)
       }
     }
     document.addEventListener("mousedown", handler)
@@ -80,30 +79,30 @@ export default function DashboardPage() {
   }
 
   const filteredLinks = [...links]
-  .sort(
-    (a, b) =>
-      new Date(b.createdAt).getTime() -
-      new Date(a.createdAt).getTime()
-  )
-  .filter((link) => {
-    const q = query.toLowerCase().trim()
-    if (!q) return true
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() -
+        new Date(a.createdAt).getTime()
+    )
+    .filter((link) => {
+      const q = query.toLowerCase().trim()
+      if (!q) return true
 
-    switch (searchBy) {
-      case "title":
-        return link.title.toLowerCase().includes(q)
-      case "url":
-        return link.url.toLowerCase().includes(q)
-      case "description":
-        return link.description?.toLowerCase().includes(q)
-      case "tags":
-        return link.tags?.some((tag) =>
-          tag.name.toLowerCase().includes(q)
-        )
-      default:
-        return true
-    }
-  })
+      switch (searchBy) {
+        case "title":
+          return link.title.toLowerCase().includes(q)
+        case "url":
+          return link.url.toLowerCase().includes(q)
+        case "description":
+          return (link.description ?? "").toLowerCase().includes(q)
+        case "tags":
+          return link.tags?.some(tag =>
+            tag.name.toLowerCase().includes(q)
+          ) ?? false
+        default:
+          return true
+      }
+    })
 
   const editLink = (id: string) => {
     setSendLink(id)
@@ -199,7 +198,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      
+
 
       <div className="px-8 py-4 text-sm text-gray-400 grid grid-cols-12 gap-4">
         <div className="col-span-2">Title</div>
@@ -209,16 +208,18 @@ export default function DashboardPage() {
         <div className="col-span-1 text-right">Actions</div>
       </div>
 
-           {links.length === 0 && (
-        <div className="py-12 text-center text-gray-500">Add new links</div>
-      )}
-
-      {links.length > 0 && filteredLinks.length === 0 && (
+      {filteredLinks.length === 0 && query && (
         <div className="py-12 text-center text-gray-500">
           No results found for <span className="text-orange-400">"{query}"</span>
         </div>
       )}
-      
+
+      {links.length === 0 && (
+        <div className="py-12 text-center text-gray-500">
+          Add new links
+        </div>
+      )}
+
       {filteredLinks.map((link, index) => (
         <motion.div
           key={link.id}
@@ -244,7 +245,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="col-span-2 flex gap-2 flex-wrap">
-            {link.tags?.length != 1 && link.tags?.length ? (
+            {link.tags && link.tags.length > 0 ? (
               link.tags.map((tag) => (
                 <span
                   key={tag.id}
