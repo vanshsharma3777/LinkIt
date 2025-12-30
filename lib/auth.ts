@@ -17,7 +17,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
 
   session: {
-    strategy: "database", 
+    strategy: "database",
   },
   callbacks: {
     async session({ session, user }) {
