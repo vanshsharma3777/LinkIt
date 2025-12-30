@@ -1,4 +1,3 @@
-
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth from 'next-auth'
 import GoogleProvider from "next-auth/providers/google";
@@ -11,7 +10,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID || "",
       clientSecret: process.env.GOOGLE_SECRET || "",
-      allowDangerousEmailAccountLinking: true
     })
   ],
   secret: process.env.AUTH_SECRET,
@@ -19,9 +17,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "database", 
   },
+  
   callbacks: {
     async session({ session, user }) {
-   
       if (user) {
         session.user.id = user.id;
       }
@@ -29,20 +27,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 
-    
+  // Simplified cookie config that works in production
   cookies: {
-    pkceCodeVerifier: {
-      name: "next-auth.pkce.code_verifier",
+    sessionToken: {
+      name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: "none", 
-        path: "/",
-        secure: true,
-        maxAge: 900,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
       },
     },
   },
-  
 
   pages: {
     signIn: "/signin",
