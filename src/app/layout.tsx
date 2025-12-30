@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "Save links. Remember why.",
   icons:{
     icon:'/logo.png'
-  }
+  } 
 };
 
 export default function RootLayout({
