@@ -230,7 +230,7 @@ export default function DashboardPage() {
           <div className="col-span-2 font-medium truncate">{link.title.toUpperCase()}</div>
 
           <a
-            href={`https://${link.url}`}
+            href={`${link.url}`}
             target="_blank"
             className="col-span-3 text-blue-400 line-clamp-2 hover:underline"
           >
