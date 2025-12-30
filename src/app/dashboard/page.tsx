@@ -125,7 +125,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0F1115] text-gray-200">
+    <div className="min-h-screen bg-[#0F1115] pb-20 md:pb-0 text-gray-200">
       <div className="flex items-center justify-between gap-3 px-4 md:px-8 py-4 border-b border-[#1f2937]">
 
         <div className="text-2xl font-bold text-orange-500 whitespace-nowrap">LinkIT</div>
