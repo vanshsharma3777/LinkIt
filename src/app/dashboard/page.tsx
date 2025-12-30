@@ -206,7 +206,7 @@ export default function DashboardPage() {
 
 
 
-      <div className="px-8 py-4 text-sm text-gray-400 grid grid-cols-12 gap-4">
+      <div className="hidden md:grid px-8  py-4 text-sm text-gray-400  grid-cols-12 gap-4">
         <div className="col-span-2">Title</div>
         <div className="col-span-3">URL</div>
         <div className="col-span-4">Description</div>
