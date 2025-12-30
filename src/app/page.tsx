@@ -28,8 +28,6 @@ export default function Hero() {
 
   return (
     <div className="relative flex flex-col min-h-screen bg-gradient-to-b from-[#0F1115] via-[#121826] to-[#0B0E14] text-center">
-
-      {/* 🔗 SOCIAL LINKS (TOP RIGHT) */}
       <div className="absolute top-6 right-6 flex gap-4 text-gray-400">
         <a
           href="https://github.com/vanshsharma3777"
@@ -56,8 +54,6 @@ export default function Hero() {
           <Linkedin size={20} />
         </a>
       </div>
-
-      {/* 🌟 HERO CONTENT */}
       <div className="flex flex-col justify-center items-center flex-1">
         <motion.div
           initial={{ y: -80, opacity: 0 }}
@@ -65,7 +61,13 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-8xl font-bold m-1.5 text-orange-500"
         >
-          LinkIT
+          <div className="flex justify-center">
+            <div>
+               LinkIT
+            </div>
+             
+          </div>
+                   
         </motion.div>
 
         <motion.div
@@ -90,11 +92,9 @@ export default function Hero() {
 
         <FmButton text="Get Started" navigateTo="/dashboard" />
       </div>
-
-      {/* 🧡 FOOTER */}
       <footer className="py-6 text-sm text-gray-500">
         © {new Date().getFullYear()}{" "}
-        <span className="text-orange-500 font-medium">LinkIT</span> — Built with{" "}
+        <span className="text-orange-500 font-medium">LinkIT </span> — Built with{" "}
         <span className="text-red-400 text-md">❤️</span> by Vansh
       </footer>
     </div>
