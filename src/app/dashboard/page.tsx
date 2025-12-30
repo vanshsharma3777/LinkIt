@@ -126,10 +126,12 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#0F1115] text-gray-200">
-      <div className="flex items-center justify-between px-8 py-4 border-b border-[#1f2937]">
-        <div className="text-2xl font-bold text-orange-500">LinkIT</div>
+      <div className="flex items-center justify-between gap-3 px-4 md:px-8 py-4 border-b border-[#1f2937]">
 
-        <div className="relative w-[40%]">
+        <div className="text-2xl font-bold text-orange-500 whitespace-nowrap">LinkIT</div>
+
+        <div className="relative flex-1 md:w-[40%]">
+
           <input
             type="text"
             value={query}
@@ -166,10 +168,11 @@ export default function DashboardPage() {
         <div className="relative flex items-center gap-4" ref={profileRef}>
           <button
             onClick={() => nav("/create")}
-            className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-black hover:bg-orange-400"
+            className="hidden md:inline-block rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-black hover:bg-orange-400"
           >
             + Add NewLink
           </button>
+
 
           <div
             onClick={() => setOpenProfile((p) => !p)}
@@ -182,8 +185,11 @@ export default function DashboardPage() {
               height={36}
               className="rounded-full"
             />
-            <span className="text-sm">{session?.user?.name}</span>
+            <span className="hidden md:inline text-sm">
+              {session?.user?.name}
+            </span>
           </div>
+
 
           {openProfile && (
             <div className="absolute right-0 top-12 w-40 rounded-lg bg-[#121826] border border-[#1f2937] shadow-lg z-50">
@@ -226,47 +232,120 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
-          className="px-8 py-4 grid grid-cols-12 gap-4 items-center border-t border-[#1f2937] hover:bg-[#121826]"
+          className="border-t border-[#1f2937]"
         >
-          <div className="col-span-2 font-medium truncate">{link.title.toUpperCase()}</div>
 
-          <a
-            href={`${link.url}`}
-            target="_blank"
-            className="col-span-3 text-blue-400 line-clamp-2 hover:underline"
-          >
-            {link.url}
-          </a>
+          <div className="md:hidden px-4 py-4 space-y-3">
+            <div>
+              <p className="text-xs text-gray-500">URL</p>
+              <a
+                href={link.url}
+                target="_blank"
+                className="text-blue-400 break-all"
+              >
+                {link.url}
+              </a>
+            </div>
 
-          <div className="col-span-4 text-sm text-gray-400 line-clamp-2">
-            {link.description
-              ? link.description.charAt(0).toUpperCase() + link.description.slice(1)
-              : "—"}
+            <div>
+              <p className="text-xs text-gray-500">Title</p>
+              <p className="font-medium">
+                {link.title.toUpperCase()}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Description</p>
+              <p className="text-sm text-gray-400">
+                {link.description || "—"}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Tags</p>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {link.tags && link.tags.length > 0 ? (
+                  link.tags.map((tag) => (
+                    <span
+                      key={tag.id}
+                      className="text-xs bg-[#1f2937] px-2 py-1 rounded"
+                    >
+                      {tag.name}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-xs text-gray-500">No tags</span>
+                )}
+              </div>
+            </div>
+
+            <div className="flex gap-4 pt-2 text-sm">
+              <button
+                onClick={() => nav(`/edit/${link.id}`)}
+                className="text-green-400"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => setDeleteId(link.id)}
+                className="text-red-400"
+              >
+                Delete
+              </button>
+            </div>
           </div>
 
-          <div className="col-span-2 flex gap-2 flex-wrap">
-            {link.tags && link.tags.length > 0 ? (
-              link.tags.map((tag) => (
-                <span
-                  key={tag.id}
-                  className="text-xs line-clamp-2 bg-[#1f2937] px-2 py-1 rounded"
-                >
-                  {tag.name}
-                </span>
-              ))
-            ) : (
-              <span className="text-xs text-gray-500">No tags</span>
-            )}
+          {/* ================= DESKTOP VIEW (UNCHANGED) ================= */}
+          <div className="hidden md:grid px-8 py-4 grid-cols-12 gap-4 items-center hover:bg-[#121826]">
+            <div className="col-span-2 font-medium truncate">
+              {link.title.toUpperCase()}
+            </div>
+
+            <a
+              href={link.url}
+              target="_blank"
+              className="col-span-3 text-blue-400 line-clamp-2 hover:underline"
+            >
+              {link.url}
+            </a>
+
+            <div className="col-span-4 text-sm text-gray-400 line-clamp-2">
+              {link.description
+                ? link.description.charAt(0).toUpperCase() + link.description.slice(1)
+                : "—"}
+            </div>
+
+            <div className="col-span-2 flex gap-2 flex-wrap">
+              {link.tags && link.tags.length > 0 ? (
+                link.tags.map((tag) => (
+                  <span
+                    key={tag.id}
+                    className="text-xs bg-[#1f2937] px-2 py-1 rounded"
+                  >
+                    {tag.name}
+                  </span>
+                ))
+              ) : (
+                <span className="text-xs text-gray-500">No tags</span>
+              )}
+            </div>
+
+            <div className="col-span-1 flex justify-end gap-2 text-sm">
+              <button
+                onClick={() => nav(`/edit/${link.id}`)}
+                className="text-green-400 hover:underline"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => setDeleteId(link.id)}
+                className="text-red-400 hover:underline"
+              >
+                Delete
+              </button>
+            </div>
           </div>
 
-          <div className="col-span-1 flex justify-end gap-2 text-sm">
-            <button onClick={() => editLink(link.id)} className="text-green-400 hover:underline">
-              Edit
-            </button>
-            <button onClick={() => setDeleteId(link.id)} className="text-red-400 hover:underline">
-              Delete
-            </button>
-          </div>
         </motion.div>
       ))}
 
@@ -296,6 +375,15 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+      <button
+        onClick={() => nav("/create")}
+        className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50
+             bg-orange-500 text-black px-6 py-3 rounded-xl w-[80%]
+             font-semibold shadow-lg active:scale-95"
+      >
+        + Add NewLink
+      </button>
+
     </div>
   )
 }
