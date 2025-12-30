@@ -17,13 +17,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
 
   session: {
-    strategy: "database", 
+    strategy: "jwt", 
   },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user , token }) {
    
-      if (user) {
-        session.user.id = user.id;
+      if (token) {
+        session.user.id = token.id as string;
       }
       return session;
     },
