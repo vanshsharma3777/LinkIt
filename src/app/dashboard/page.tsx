@@ -199,6 +199,8 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      
+
       <div className="px-8 py-4 text-sm text-gray-400 grid grid-cols-12 gap-4">
         <div className="col-span-2">Title</div>
         <div className="col-span-3">URL</div>
@@ -207,6 +209,16 @@ export default function DashboardPage() {
         <div className="col-span-1 text-right">Actions</div>
       </div>
 
+           {links.length === 0 && (
+        <div className="py-12 text-center text-gray-500">Add new links</div>
+      )}
+
+      {links.length > 0 && filteredLinks.length === 0 && (
+        <div className="py-12 text-center text-gray-500">
+          No results found for <span className="text-orange-400">"{query}"</span>
+        </div>
+      )}
+      
       {filteredLinks.map((link, index) => (
         <motion.div
           key={link.id}
