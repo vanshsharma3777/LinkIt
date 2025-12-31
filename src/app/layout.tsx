@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { SessionProvider } from "next-auth/react"
 import { Toaster } from "sonner"
-import { useEffect } from "react"
+import {ServiceWorker} from '../../components/serviceWorker' 
 import type { Metadata } from "next"
 
 const geistSans = Geist({
@@ -35,19 +35,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
-  // ✅ Register Service Worker
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js")
-    }
-  }, [])
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ServiceWorker />
+
         <SessionProvider>
           {children}
           <Toaster richColors position="bottom-center" />
@@ -56,3 +50,4 @@ export default function RootLayout({
     </html>
   )
 }
+
