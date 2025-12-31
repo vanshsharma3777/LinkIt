@@ -3,6 +3,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner"
 import { Metadata } from "next";
+import { Providers } from "./providers";
 
 
 const geistSans = Geist({
@@ -29,16 +30,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    return (
-    <SessionProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-           {children}
+  return (
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Providers>
+          {children}
           <Toaster richColors position="bottom-center" />
-        </body>
-      </html>
-    </SessionProvider>
+        </Providers>
+      </body>
+    </html>
   );
 }
