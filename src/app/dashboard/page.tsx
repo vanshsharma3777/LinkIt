@@ -7,6 +7,7 @@ import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import { PulseLoader } from "../../../components/ui/loader"
 import { Menu, Check } from "lucide-react"
+import { User } from "lucide-react";
 import { toast } from "sonner"
 
 interface Tag {
@@ -179,8 +180,8 @@ export default function DashboardPage() {
             className="flex items-center gap-2 cursor-pointer"
           >
             <img
-              src={session?.user?.image || "/avatar.png"}
-              alt="user"
+              src={session?.user?.image || "/profile.png"}
+              alt="User"
               width={36}
               height={36}
               className="rounded-full"
