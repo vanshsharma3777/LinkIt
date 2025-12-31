@@ -296,7 +296,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* ================= DESKTOP VIEW (UNCHANGED) ================= */}
           <div className="hidden md:grid px-8 py-4 grid-cols-12 gap-4 items-center hover:bg-[#121826]">
             <div className="col-span-2 font-medium truncate">
               {link.title.toUpperCase()}
