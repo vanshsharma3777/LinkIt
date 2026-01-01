@@ -53,9 +53,17 @@ export async function PUT(
                 ))
             }
         },
-        include:{
-            tags:true
-        }
+        select: {
+            title: true,
+            url: true,
+            description: true,
+            createdAt: true,
+            tags: {
+                select: {
+                    name: true,
+                },
+            },
+        },
     })
     const cacheKey = `user:${session.user.id!}:links`
     const isDel = await redis.del(cacheKey);
@@ -91,9 +99,18 @@ export async function GET(
             id:linkId,
             userId:session.user.id!
         },
-        include:{
-            tags:true
-        }
+        select: {
+            
+            title: true,
+            url: true,
+            description: true,
+            createdAt: true,
+            tags: {
+                select: {
+                    name: true,
+                },
+            },
+        },
     })
     if(!doLinkExists){
         return NextResponse.json({
@@ -101,9 +118,6 @@ export async function GET(
             error:"Link not exists or Unauthorized"
         },{status:402})
     }
-
-    const userId= session.user.id!
-
     return NextResponse.json({
         success:true,
         doLinkExists

@@ -27,30 +27,27 @@ export async function GET() {
         }
         console.log('Fetching from Database');
 
-        const userDetails: User | null = await prisma.user.findFirst({
-            where: {
-                id: session.user.id!
-            },
-        })
         const userLinks = await prisma.link.findMany({
             where: {
                 userId: session.user.id
             },
-            include: {
-                tags: true
+            select:{
+                id:true,
+                url:true,
+                description:true,
+                tags:{
+                    select:{
+                        name:true
+                    }
+                },
+                title:true,
+                createdAt:true,
             }
         })
-
-        if (!userDetails) {
-            return NextResponse.json({
-                success: false,
-                error: "User not found or unauthorized"
-            }, { status: 402 })
-        }
+        
 
         const responseData = {
-            userDetails,
-            userLinks
+            userLinks,
         }
         await redis.setex(
             cacheKey,
@@ -73,6 +70,4 @@ export async function GET() {
       msg: "Server error"
     }, { status: 500 })
   }
-    
-
 }
