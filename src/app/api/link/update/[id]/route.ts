@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import redis from "@/lib/redis";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -56,6 +57,14 @@ export async function PUT(
             tags:true
         }
     })
+    const cacheKey = `user:${session.user.id!}:links`
+    const isDel = await redis.del(cacheKey);
+    console.log(isDel)
+    if (isDel==1){
+            console.log("A Link is updated so old cache deleted");
+    } else{
+        console.log("redis cache data cannot be deleted")
+    }
     return NextResponse.json({
         success:true,
         updatedLink
@@ -69,7 +78,6 @@ export async function GET(
    ){
     
     const {id:linkId} = await params
-    console.log(linkId)
     const session = await auth()
     if(!session?.user){
         return NextResponse.json({
@@ -95,6 +103,7 @@ export async function GET(
     }
 
     const userId= session.user.id!
+
     return NextResponse.json({
         success:true,
         doLinkExists

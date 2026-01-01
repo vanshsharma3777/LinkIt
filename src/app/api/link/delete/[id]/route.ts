@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth"
 import prisma from "@/lib/prisma"
+import redis from "@/lib/redis"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function DELETE(
@@ -35,6 +36,14 @@ export async function DELETE(
     where: { id: linkId },
   })
 
+  const cacheKey = `user:${session.user.id!}:links`
+    const isDel = await redis.del(cacheKey);
+    console.log(isDel)
+    if (isDel==1){
+            console.log("Some link has been deleted so old cache is deleted");
+    } else{
+        console.log("redis cache data cannot be deleted")
+    }
   return NextResponse.json(
     { success: true, deletedLink },
     { status: 200 }
