@@ -273,7 +273,7 @@ export default function DashboardPage() {
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-2 overflow-hidden">
                           <Type size={18} className="text-orange-500 animate-pulse shrink-0" />
-                          <h3 className="text-xl font-bold text-gray-500 uppercase tracking-tight line-clamp-1 group-hover:text-orange-500 transition-colors">
+                          <h3 className="text-xl font-bold text-gray-300 uppercase tracking-tight line-clamp-1 group-hover:text-orange-500 transition-colors">
                             {link.title}
                           </h3>
                         </div>
